@@ -33,15 +33,31 @@ def stock_data():
     debt_to_equity = liabilities / (assets - liabilities) if assets != 0 else 0
     free_cash_flow = operating_cash_flow - capital_expenditure
 
-    data = {
+    analysis_data = {
         'pe_ratio': pe_ratio,
         'debt_to_equity': debt_to_equity,
         'free_cash_flow': free_cash_flow
     }
 
-    print(f"Here are the company's metrics for your stock: {data}")
+    print(f"Here are the company's metrics for your stock: {analysis_data}" )
+
+    valuation = "0"
+    expectations = "0"
+
+    if sector_averages:
+        if pe_ratio > sector_averages['pe_ratio']:
+            valuation = "expensive"
+            expectations = ["This means that investors expect higher than average growth in the future"]
+        elif pe_ratio < sector_averages['pe_ratio']:
+            valuation = "cheap"
+            expectations = ["This means that investors expect lower than average growth in the future"]
+        else:
+            valuation = "fair"
+            expectations = ["This means that the stock is a fair price relative to it's future growth prospects"]
+
+    print(f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
+
+    return analysis_data, valuation, expectations
 
 
 
-greeting()
-stock_data()

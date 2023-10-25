@@ -1,7 +1,4 @@
-def information():
-    while True:
-        pass
+from data import greeting, stock_data
 
-
-def main():
-    pass
+greeting()
+stock_data()

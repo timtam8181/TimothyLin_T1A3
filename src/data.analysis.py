@@ -1,2 +1,0 @@
-def stock_analysis():
-    
