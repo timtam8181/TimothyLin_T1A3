@@ -58,11 +58,13 @@ def stock_data():
     valuation = "0"
     expectations = "0"
 
-    if sector_averages:
-        if pe_ratio > sector_averages['pe_ratio']:
+    sector_averages_data = sector_averages(sector)
+
+    if sector_averages_data:
+        if pe_ratio > sector_averages_data['pe_ratio']:
             valuation = "expensive"
             expectations = ["This means that investors expect higher than average growth in the future"]
-        elif pe_ratio < sector_averages['pe_ratio']:
+        elif pe_ratio < sector_averages_data['pe_ratio']:
             valuation = "cheap"
             expectations = ["This means that investors expect lower than average growth in the future"]
         else:
