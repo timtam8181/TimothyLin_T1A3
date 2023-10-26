@@ -1,6 +1,5 @@
-from data import greeting, stock_data
+from data import stock_data
 
-greeting()
 stock_data()
 
 # def main():

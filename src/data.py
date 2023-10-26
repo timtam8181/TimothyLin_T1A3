@@ -12,11 +12,19 @@ def sector_averages(sector):
     } 
     return sector_averages.get(sector, {})
 
-def greeting():
-    welcome = pyg.figlet_format("Welcome to stock analysis!")
-    print(welcome)
-    stock = input('Choose a stock you would like to analyse!: ')
-    print(f'Great!, today we will analyse {stock}')
+# def greeting():
+#     welcome = pyg.figlet_format("Welcome to stock analysis!")
+#     print(welcome)
+#     stock = input('Choose a stock you would like to analyse!: ')
+#     print(f'Great!, today we will analyse {stock}')
+
+def get_float_input(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            return value
+        except ValueError:
+            print("Please enter a valid number!")
 
 def stock_data():
     sector = None
@@ -24,15 +32,15 @@ def stock_data():
         sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
         
         if sector not in ['healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech']:
-            print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail")
+            print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail)")
 
-    revenue = float(input("Enter the company's revenue: "))
-    expenses = float(input("Enter the company's expense: "))
-    operating_cash_flow = float(input("Enter the company's operating cash flow: "))
-    capital_expenditure = float(input("Enter the company's capital_expenditure: "))
-    assets = float(input("Enter the company's assets: "))
-    liabilities = float(input("Enter the company's liabilities: "))
-    market_capitalisation = float(input("Enter the company's market cap: "))
+    revenue = get_float_input("Enter the company's revenue: ")
+    expenses = get_float_input("Enter the company's expense: ")
+    operating_cash_flow = get_float_input("Enter the company's operating cash flow: ")
+    capital_expenditure = get_float_input("Enter the company's capital_expenditure: ")
+    assets = get_float_input("Enter the company's assets: ")
+    liabilities = get_float_input("Enter the company's liabilities: ")
+    market_capitalisation = get_float_input("Enter the company's market cap: ")
 
     profit = revenue - expenses
     pe_ratio = market_capitalisation / profit if profit != 0 else 0
