@@ -12,11 +12,7 @@ def sector_averages(sector):
     } 
     return sector_averages.get(sector, {})
 
-# def greeting():
-#     welcome = pyg.figlet_format("Welcome to stock analysis!")
-#     print(welcome)
-#     stock = input('Choose a stock you would like to analyse!: ')
-#     print(f'Great!, today we will analyse {stock}')
+
 
 def get_float_input(prompt):
     while True:
@@ -27,53 +23,75 @@ def get_float_input(prompt):
             print("Please enter a valid number!")
 
 def stock_data():
-    sector = None
-    while sector not in {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}:
-        sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
+    while True:
+        sector = None
+        while sector not in {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}:
+            sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
         
-        if sector not in ['healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech']:
-            print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail)")
+            if sector not in ['healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech']:
+                print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail)")
 
-    revenue = get_float_input("Enter the company's revenue: ")
-    expenses = get_float_input("Enter the company's expense: ")
-    operating_cash_flow = get_float_input("Enter the company's operating cash flow: ")
-    capital_expenditure = get_float_input("Enter the company's capital_expenditure: ")
-    assets = get_float_input("Enter the company's assets: ")
-    liabilities = get_float_input("Enter the company's liabilities: ")
-    market_capitalisation = get_float_input("Enter the company's market cap: ")
+        revenue = get_float_input("Enter the company's revenue: ")
+        expenses = get_float_input("Enter the company's expense: ")
+        operating_cash_flow = get_float_input("Enter the company's operating cash flow: ")
+        capital_expenditure = get_float_input("Enter the company's capital_expenditure: ")
+        assets = get_float_input("Enter the company's assets: ")
+        liabilities = get_float_input("Enter the company's liabilities: ")
+        market_capitalisation = get_float_input("Enter the company's market cap: ")
 
-    profit = revenue - expenses
-    pe_ratio = market_capitalisation / profit if profit != 0 else 0
-    debt_to_equity = liabilities / (assets - liabilities) if assets != 0 else 0
-    free_cash_flow = operating_cash_flow - capital_expenditure
+        profit = revenue - expenses
+        pe_ratio = market_capitalisation / profit if profit != 0 else 0
+        debt_to_equity = liabilities / (assets - liabilities) if assets != 0 else 0
+        free_cash_flow = operating_cash_flow - capital_expenditure
 
-    analysis_data = {
-        'pe_ratio': pe_ratio,
-        'debt_to_equity': debt_to_equity,
-        'free_cash_flow': free_cash_flow
-    }
+        analysis_data = {
+            'pe_ratio': pe_ratio,
+            'debt_to_equity': debt_to_equity,
+            'free_cash_flow': free_cash_flow
+        }
 
-    print(f"Here are the company's metrics for your stock: {analysis_data}" )
+        print(f"Here are the company's metrics for your stock: {analysis_data}" )
 
-    valuation = "0"
-    expectations = "0"
+        valuation = "0"
+        expectations = "0"
 
-    sector_averages_data = sector_averages(sector)
+        sector_averages_data = sector_averages(sector)
 
-    if sector_averages_data:
-        if pe_ratio > sector_averages_data['pe_ratio']:
-            valuation = "expensive"
-            expectations = ["This means that investors expect higher than average growth in the future"]
-        elif pe_ratio < sector_averages_data['pe_ratio']:
-            valuation = "cheap"
-            expectations = ["This means that investors expect lower than average growth in the future"]
-        else:
-            valuation = "fair"
-            expectations = ["This means that the stock is a fair price relative to it's future growth prospects"]
+        if sector_averages_data:
+            if pe_ratio > sector_averages_data['pe_ratio']:
+                valuation = "expensive"
+                expectations = "This means that investors expect higher than average growth in the future"
+            elif pe_ratio < sector_averages_data['pe_ratio']:
+                valuation = "cheap"
+                expectations = "This means that investors expect lower than average growth in the future"
+            else:
+                valuation = "fair"
+                expectations = "This means that the stock is a fair price relative to it's future growth prospects"
 
-    print(f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
+        sector_averages_data = sector_averages(sector)
 
-    return analysis_data, valuation, expectations
+        observation = "0"
+        debt_levels = "0"
+
+        if sector_averages_data:
+            if debt_to_equity > sector_averages_data['pe_ratio']:
+                debt_levels = "high"
+                observation = "Careful! This company is highly leveraged compared to its peers."
+            elif debt_to_equity < sector_averages_data['pe_ratio']:
+                debt_levels = "low"
+                observation = "This company does not have much debt compared to its peers."
+            else:
+                debt_levels = "average"
+                observation = "This company has a fair amount of debt compared to its peers."
+
+            print(f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
+            print(f"The company has {debt_levels} debt levels. {observation} ")
+
+        another_company = input("Do you want to analyze another company? (y/n): ")
+        if another_company.upper() != "Y":
+            break
+
+    return analysis_data, valuation, expectations,
 
 # def main():
 #     all_results = []
@@ -92,3 +110,8 @@ def stock_data():
 
 # main()
 
+# def greeting():
+#     welcome = pyg.figlet_format("Welcome to stock analysis!")
+#     print(welcome)
+#     stock = input('Choose a stock you would like to analyse!: ')
+#     print(f'Great!, today we will analyse {stock}')
