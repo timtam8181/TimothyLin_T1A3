@@ -9,8 +9,8 @@ def sector_averages(sector):
         'real_estate': {'pe_ratio': 11, 'debt_to_equity': 0.3},
         'retail': {'pe_ratio': 12, 'debt_to_equity': 0.7},
         'tech': {'pe_ratio': 13, 'debt_to_equity': 1},      
-
     } 
+    return sector_averages.get(sector, {})
 
 def greeting():
     welcome = pyg.figlet_format("Welcome to stock analysis!")
@@ -19,7 +19,13 @@ def greeting():
     print(f'Great!, today we will analyse {stock}')
 
 def stock_data():
-    sector = input("Enter the sector of the company: ")
+    sector = None
+    while sector not in {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}:
+        sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
+        
+        if sector not in ['healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech']:
+            print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail")
+
     revenue = float(input("Enter the company's revenue: "))
     expenses = float(input("Enter the company's expense: "))
     operating_cash_flow = float(input("Enter the company's operating cash flow: "))
@@ -59,5 +65,20 @@ def stock_data():
 
     return analysis_data, valuation, expectations
 
+# def main():
+#     all_results = []
+#     while True:
+#         result= stock_data()
+#         all_results.append(result)
 
+#         another = input("Would you like to analyse another stock? (yes/nno): ")
+#         if another.lower() != "yes":
+#             break
+
+#     print("Here is a summary of the results")
+#     for i, result in enumerate(all_results, 1):
+#         metrics, valuation, Exception = result
+#         print(f"{i}. Metrics: {metrics}, Valuation: {valuation}, Expectations: {expectations}")
+
+# main()
 
