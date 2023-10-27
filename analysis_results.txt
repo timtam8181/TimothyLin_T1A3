@@ -1,21 +1,14 @@
 
-Stock: Dusk
-PE Ratio: -20.19
-Debt to equity: 0.11
-Free Cash Flow: -270.0
+Stock: VAS
+PE Ratio: 3.88
+Debt to equity: 0.33
+Free Cash Flow: 400.0
 Valuation: cheap
 Expectations: This means that investors expect lower than average growth in the future
 
-Stock: Resmed
-PE Ratio: -0.01
-Debt to equity: 0.0
-Free Cash Flow: -1.0
-Valuation: cheap
-Expectations: This means that investors expect lower than average growth in the future
-
-Stock: reg
-PE Ratio: -0.01
-Debt to equity: 0.14
+Stock: VAS
+PE Ratio: 93.65
+Debt to equity: -2.78
 Free Cash Flow: -270.0
-Valuation: cheap
-Expectations: This means that investors expect lower than average growth in the future
+Valuation: expensive
+Expectations: This means that investors expect higher than average growth in the future

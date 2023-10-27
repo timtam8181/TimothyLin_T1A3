@@ -12,6 +12,10 @@ def sector_averages(sector):
     } 
     return sector_averages.get(sector, {})
 
+def greeting():
+    welcome = pyg.figlet_format("Welcome to stock analysis!")
+    print(welcome)
+
 def get_stock_name():
     return input("Enter the name of the stock you would like to analyse: ")
 
@@ -138,8 +142,6 @@ def stock_data():
 
 # main()
 
-# def greeting():
-#     welcome = pyg.figlet_format("Welcome to stock analysis!")
-#     print(welcome)
+
 #     stock = input('Choose a stock you would like to analyse!: ')
 #     print(f'Great!, today we will analyse {stock}')
