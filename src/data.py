@@ -13,7 +13,6 @@ def sector_averages(sector):
     return sector_averages.get(sector, {})
 
 
-
 def get_float_input(prompt):
     while True:
         try:
@@ -21,6 +20,15 @@ def get_float_input(prompt):
             return value
         except ValueError:
             print("Please enter a valid number!")
+
+def save_results_to_file(analysis_data, valuation, expectations):
+    with open("analysis_results.txt", "w") as file:
+        file.write("Analysis Results:\n")
+        file.write(f"PE Ratio: {analysis_data['pe_ratio']}\n")
+        file.write(f"Debt to equity: {analysis_data['debt_to_equity']}\n")
+        file.write(f"Free Cash Flow: {analysis_data['free_cash_flow']}\n")
+        file.write(f"Valuation: {valuation}\n")
+        file.write(f"Expectations: {expectations}\n")
 
 def stock_data():
     while True:
@@ -45,9 +53,9 @@ def stock_data():
         free_cash_flow = operating_cash_flow - capital_expenditure
 
         analysis_data = {
-            'pe_ratio': pe_ratio,
-            'debt_to_equity': debt_to_equity,
-            'free_cash_flow': free_cash_flow
+            'pe_ratio': round(pe_ratio, 2),
+            'debt_to_equity': round(debt_to_equity, 2),
+            'free_cash_flow': round(free_cash_flow, 2)
         }
 
         print(f"Here are the company's metrics for your stock: {analysis_data}" )
@@ -74,18 +82,34 @@ def stock_data():
         debt_levels = "0"
 
         if sector_averages_data:
-            if debt_to_equity > sector_averages_data['pe_ratio']:
+            if debt_to_equity > sector_averages_data['debt_to_equity']:
                 debt_levels = "high"
                 observation = "Careful! This company is highly leveraged compared to its peers."
-            elif debt_to_equity < sector_averages_data['pe_ratio']:
+            elif debt_to_equity < sector_averages_data['debt_to_equity']:
                 debt_levels = "low"
                 observation = "This company does not have much debt compared to its peers."
             else:
                 debt_levels = "average"
                 observation = "This company has a fair amount of debt compared to its peers."
 
+        sector_averages_data = sector_averages(sector)
+
+        cash_flow_levels = "0"
+        outlook = "0"
+
+        if sector_averages_data:
+            if free_cash_flow < 0:
+                cash_flow_levels = "negative"
+                outlook = "Careful! This company does not produce postive cash flow, meaning it will have to raise capital or increase debt when they run out of cash! "
+            elif free_cash_flow >= 0:
+                cash_flow_levels = "positive"
+                outlook = "Great! this company produces enough cash flow to be self sustaining! It can use this cash to invest, expand or pay shareholders!."
+
             print(f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
-            print(f"The company has {debt_levels} debt levels. {observation} ")
+            print(f"Also, this company has {debt_levels} debt levels. {observation} ")
+            print(f"Finally, this company has {cash_flow_levels} cash flows. {outlook} ")
+        
+        save_results_to_file(analysis_data, valuation, expectations)
 
         another_company = input("Do you want to analyze another company? (y/n): ")
         if another_company.upper() != "Y":
