@@ -25,7 +25,8 @@ def get_float_input(prompt):
 
 def save_results_to_file(analysis_data, valuation, expectations, stock_name):
     with open("analysis_results.txt", "a") as file:
-        file.write("Analysis Results:\n")
+        file.write("\n")
+        file.write(f"Stock: {stock_name}\n")
         file.write(f"PE Ratio: {analysis_data['pe_ratio']}\n")
         file.write(f"Debt to equity: {analysis_data['debt_to_equity']}\n")
         file.write(f"Free Cash Flow: {analysis_data['free_cash_flow']}\n")
