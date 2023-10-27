@@ -12,6 +12,8 @@ def sector_averages(sector):
     } 
     return sector_averages.get(sector, {})
 
+def get_stock_name():
+    return input("Enter the name of the stock you would like to analyse: ")
 
 def get_float_input(prompt):
     while True:
@@ -21,8 +23,8 @@ def get_float_input(prompt):
         except ValueError:
             print("Please enter a valid number!")
 
-def save_results_to_file(analysis_data, valuation, expectations):
-    with open("analysis_results.txt", "w") as file:
+def save_results_to_file(analysis_data, valuation, expectations, stock_name):
+    with open("analysis_results.txt", "a") as file:
         file.write("Analysis Results:\n")
         file.write(f"PE Ratio: {analysis_data['pe_ratio']}\n")
         file.write(f"Debt to equity: {analysis_data['debt_to_equity']}\n")
@@ -32,6 +34,7 @@ def save_results_to_file(analysis_data, valuation, expectations):
 
 def stock_data():
     while True:
+        stock_name = get_stock_name()
         sector = None
         while sector not in {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}:
             sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
@@ -109,7 +112,7 @@ def stock_data():
             print(f"Also, this company has {debt_levels} debt levels. {observation} ")
             print(f"Finally, this company has {cash_flow_levels} cash flows. {outlook} ")
         
-        save_results_to_file(analysis_data, valuation, expectations)
+        save_results_to_file(analysis_data, valuation, expectations, stock_name)
 
         another_company = input("Do you want to analyze another company? (y/n): ")
         if another_company.upper() != "Y":

@@ -4,3 +4,21 @@ Debt to equity: 4.68
 Free Cash Flow: 539.0
 Valuation: cheap
 Expectations: This means that investors expect lower than average growth in the future
+Analysis Results:
+PE Ratio: 349.74
+Debt to equity: 0.61
+Free Cash Flow: 2693.0
+Valuation: expensive
+Expectations: This means that investors expect higher than average growth in the future
+Analysis Results:
+PE Ratio: 6.1
+Debt to equity: 0.12
+Free Cash Flow: 300.0
+Valuation: cheap
+Expectations: This means that investors expect lower than average growth in the future
+Analysis Results:
+PE Ratio: -37.3
+Debt to equity: 0.01
+Free Cash Flow: -12000.0
+Valuation: cheap
+Expectations: This means that investors expect lower than average growth in the future
