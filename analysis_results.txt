@@ -1,14 +1,1 @@
 
-Stock: VAS
-PE Ratio: 3.88
-Debt to equity: 0.33
-Free Cash Flow: 400.0
-Valuation: cheap
-Expectations: This means that investors expect lower than average growth in the future
-
-Stock: VAS
-PE Ratio: 93.65
-Debt to equity: -2.78
-Free Cash Flow: -270.0
-Valuation: expensive
-Expectations: This means that investors expect higher than average growth in the future
