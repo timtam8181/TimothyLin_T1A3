@@ -1,5 +1,6 @@
 import pyfiglet as pyg
 import math
+from colorama import Fore, Back, Style, init
 
 
 SECTOR_AVERAGES = {
@@ -15,16 +16,18 @@ def sector_averages(sector):
     return SECTOR_AVERAGES.get(sector, {})
 
 def greeting():
+    # Initialise colorama
+    init(autoreset=True)
     welcome = pyg.figlet_format("Welcome to stock analysis!")
-    print(welcome)
+    print(Fore.GREEN + welcome)
 
 def get_stock_name():
-    return input("Enter the name of the stock you would like to analyse: ")
+    return input(Fore.YELLOW + "Enter the name of the stock you would like to analyse: ")
 
 def get_float_input(prompt):
     while True:
         try:
-            value = float(input(prompt))
+            value = float(input(Fore.YELLOW + prompt))
             return value
         except ValueError:
             print("Please enter a valid number!")
@@ -50,10 +53,10 @@ def stock_data():
             valid_sectors = {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}
 
             while sector not in valid_sectors:
-                sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ").lower()
+                sector = input(Fore.YELLOW + "Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ").lower()
         
                 if sector not in valid_sectors:
-                    print("Invalid sector. Choose from healthcare, finance, energy, real_estate, retail, tech")
+                    print(Fore.RED + "Invalid sector. Choose from healthcare, finance, energy, real_estate, retail, tech")
 
             revenue = get_float_input("Enter the company's revenue: $")
             expenses = get_float_input("Enter the company's expense: $")
@@ -87,7 +90,7 @@ def stock_data():
                 'free_cash_flow': round(free_cash_flow, 2)
             }
 
-            print(f"Here are the company's metrics for your stock: {analysis_data}" )
+            print(Fore.BLUE + f"Here are the company's metrics for your stock: {analysis_data}" )
 
             valuation = "0"
             expectations = "0"
@@ -142,13 +145,13 @@ def stock_data():
                     cash_flow_levels = "positive"
                     outlook = "Great! this company produces enough cash flow to be self sustaining! It can use this cash to invest, expand or pay shareholders!."
 
-                print(f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
-                print(f"Also, this company has {debt_levels} debt levels. {observation} ")
-                print(f"Finally, this company has {cash_flow_levels} cash flows. {outlook} ")
+                print(Fore.BLUE + f"The stock is considered {valuation} relative to its industry peers. {expectations}. ")
+                print(Fore.BLUE + f"Also, this company has {debt_levels} debt levels. {observation} ")
+                print(Fore.BLUE + f"Finally, this company has {cash_flow_levels} cash flows. {outlook} ")
         
             save_results_to_file(analysis_data, valuation, expectations, stock_name)
 
-            another_company = input("Do you want to analyze another company? (y/n): ")
+            another_company = input(Fore.CYAN + "Do you want to analyze another company? (y/n): ")
             if another_company.upper() != "Y":
                 break
 
