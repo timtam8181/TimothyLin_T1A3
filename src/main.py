@@ -1,4 +1,4 @@
-from data import stock_data, greeting
+from stock_analyser import stock_data, greeting
 import subprocess
 
 greeting()
