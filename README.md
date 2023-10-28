@@ -11,10 +11,14 @@
 
 ## Features
 
-###
-###
-###
-###
+### INPUT
+Receives input from the user. The terminal application will ask for financial information about the company they wish to analyse.
+### Calculate 3 metrics
+Based on the financial information received from the user, it will calculate Price/ Earnings ratio, Debt to equity ratio and Free cash flow.
+### Compares the three metrics against the sector averages
+Once the three metrics are calculated, the application will then compare them against their respective sector averages and give a comment about the results. The terminal application will also allow the user to compare more than one company.
+### Prints results into a txt file which then opens a notepad that can be saved
+Once the user has finished, the results will be printed out to a text file and will automatically be open on a notepad which can be saved.
 
 ## Implementation plan
 ### Screenshots
@@ -24,12 +28,13 @@
 ![Trello.4](docs/Trello.4.png)
 ![Trello.5](docs/Trello.5.png)
 ![Trello.6](docs/Trello.6.png)
+![Trello.7](docs/Trello.7.png)
 
 ## Steps to install the application
 
 ## Dependencies required by the application
--colorama==0.4.5
--pyfiglet==0.8.post1
--pytest==7.1.3
+- colorama==0.4.5  
+- pyfiglet==0.8.post1  
+- pytest==7.1.3  
 
 ## Command line arguments made for the application

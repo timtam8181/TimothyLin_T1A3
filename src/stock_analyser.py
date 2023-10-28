@@ -1,8 +1,8 @@
-import math
 import pyfiglet as pyg
+import math
 
-def sector_averages(sector):
-    sector_averages = {
+
+SECTOR_AVERAGES = {
         'healthcare': {'pe_ratio': 25, 'debt_to_equity': 0.6},
         'finance': {'pe_ratio': 10, 'debt_to_equity': 0.6},
         'energy': {'pe_ratio': 14, 'debt_to_equity': 0.5},
@@ -10,7 +10,9 @@ def sector_averages(sector):
         'retail': {'pe_ratio': 12, 'debt_to_equity': 0.7},
         'tech': {'pe_ratio': 13, 'debt_to_equity': 1},      
     } 
-    return sector_averages.get(sector, {})
+
+def sector_averages(sector):
+    return SECTOR_AVERAGES.get(sector, {})
 
 def greeting():
     welcome = pyg.figlet_format("Welcome to stock analysis!")
@@ -45,28 +47,43 @@ def stock_data():
         while True:
             stock_name = get_stock_name()
             sector = None
-            while sector not in {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}:
-                sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ")
-        
-                if sector not in ['healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech']:
-                    print("The sector of your company needs to be from (healthcare, finance, energy, real_estate, retail)")
+            valid_sectors = {'healthcare', 'finance', 'energy', 'real_estate', 'retail', 'tech'}
 
-            revenue = get_float_input("Enter the company's revenue: ")
-            expenses = get_float_input("Enter the company's expense: ")
-            operating_cash_flow = get_float_input("Enter the company's operating cash flow: ")
-            capital_expenditure = get_float_input("Enter the company's capital_expenditure: ")
-            assets = get_float_input("Enter the company's assets: ")
-            liabilities = get_float_input("Enter the company's liabilities: ")
-            market_capitalisation = get_float_input("Enter the company's market cap: ")
+            while sector not in valid_sectors:
+                sector = input("Enter the sector of your company (healthcare, finance, energy, real_estate, retail, tech): ").lower()
+        
+                if sector not in valid_sectors:
+                    print("Invalid sector. Choose from healthcare, finance, energy, real_estate, retail, tech")
+
+            revenue = get_float_input("Enter the company's revenue: $")
+            expenses = get_float_input("Enter the company's expense: $")
+            operating_cash_flow = get_float_input("Enter the company's operating cash flow: $")
+            capital_expenditure = get_float_input("Enter the company's capital_expenditure: $")
+            assets = get_float_input("Enter the company's assets: $")
+            liabilities = get_float_input("Enter the company's liabilities: $")
+            market_capitalisation = get_float_input("Enter the company's market cap: $")
+
+            # Analysis data is calculated here
 
             profit = revenue - expenses
-            pe_ratio = market_capitalisation / profit if profit != 0 else 0
-            debt_to_equity = liabilities / (assets - liabilities) if assets != 0 else 0
             free_cash_flow = operating_cash_flow - capital_expenditure
 
+            try:
+                pe_ratio = market_capitalisation / profit
+            except ZeroDivisionError:
+                pe_ratio = float('inf')
+                print("As profit equals zero, PE ratio cannot be calculated")
+
+            try:    
+                debt_to_equity = liabilities / (assets - liabilities)
+            except ZeroDivisionError:
+                debt_to_equity = float('inf')
+                print("As equity equals zero, Debt to equity ratio cannot be calculated")
+            
+
             analysis_data = {
-                'pe_ratio': round(pe_ratio, 2),
-                'debt_to_equity': round(debt_to_equity, 2),
+                'pe_ratio': round(pe_ratio, 2) if pe_ratio != float('inf') else 'N/A',
+                'debt_to_equity': round(debt_to_equity, 2) if debt_to_equity != float('inf') else 'N/A',
                 'free_cash_flow': round(free_cash_flow, 2)
             }
 
@@ -78,7 +95,11 @@ def stock_data():
             sector_averages_data = sector_averages(sector)
 
             if sector_averages_data:
-                if pe_ratio > sector_averages_data['pe_ratio']:
+                # Handling PE ratio analysis
+                if pe_ratio == float('inf'):
+                    valuation = "N/A"
+                    expectations = "The company is not profitable, meaning PE rato cannot be calculated"
+                elif pe_ratio > sector_averages_data['pe_ratio']:
                     valuation = "expensive"
                     expectations = "This means that investors expect higher than average growth in the future"
                 elif pe_ratio < sector_averages_data['pe_ratio']:
@@ -93,8 +114,12 @@ def stock_data():
             observation = "0"
             debt_levels = "0"
 
+                # Handling debt to equity analysis
             if sector_averages_data:
-                if debt_to_equity > sector_averages_data['debt_to_equity']:
+                if debt_to_equity == float('inf'):
+                    debt_levels = "N/A"
+                    observation = "The company has zero equity, meaning debt to equity can not be calculated"
+                elif debt_to_equity > sector_averages_data['debt_to_equity']:
                     debt_levels = "high"
                     observation = "Careful! This company is highly leveraged compared to its peers."
                 elif debt_to_equity < sector_averages_data['debt_to_equity']:
@@ -132,4 +157,8 @@ def stock_data():
     except KeyboardInterrupt:
         print("\nAnalysis was interrupted.")
     except Exception as e:
-        print(f"An error occurred: {e}")        
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    greeting()
+    stock_data()
