@@ -132,4 +132,4 @@ def stock_data():
     except KeyboardInterrupt:
         print("\nAnalysis was interrupted.")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")        
