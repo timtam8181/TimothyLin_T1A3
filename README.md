@@ -31,10 +31,13 @@ Once the user has finished, the results will be printed out to a text file and w
 ![Trello.7](docs/Trello.7.png)
 
 ## Steps to install the application
+- Step 1: Open UBUNTU terminal
+- Step 2: Switch to a folder where the terminal application will be saved. Clone with command: ```git clone git@github.com:timtam8181/TimothyLin_T1A3.git```
+- Step 3: Open cloned folder, first change directeroy: ```cd TimothyLin_T1A3/src``` then ```run bash wrapper.sh```
+
 
 ## Dependencies required by the application
 - colorama==0.4.5  
 - pyfiglet==0.8.post1  
-- pytest==7.1.3  
+- pytest==7.1.3
 
-## Command line arguments made for the application
